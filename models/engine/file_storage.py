@@ -2,6 +2,7 @@
 
 """File storage"""
 
+from model.base_model import BaseModel
 import json
 
 class FileStorage:
