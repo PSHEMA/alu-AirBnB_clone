@@ -25,14 +25,15 @@ class FileStorage:
 
     def reload(self):
         """Deserializes the JSON file to __objects."""
-        dict_obj = {}
-        FileStorage.__objects = {}
-        if (exists(FileStorage.__file_path)):
+        try:
             with open(FileStorage.__file_path, "r") as file:
-                dict_obj = load(file)
-                for key, value in dict_obj.items():
-                    class_name = key.split(".")[0]
-                    if class_name in name_class:
-                        FileStorage.__objects[key] = eval(class_name)(**value)
-                    else:
-                        pass
+                data = json.load(file)
+                for key, value in data.items():
+                    class_name, obj_id = key.split('.')
+                    module_name = class_name.lower()
+                    module = __import__('models.' + module_name, fromlist=[class_name])
+                    cls = getattr(module, class_name)
+                    instance = cls(**value)
+                    FileStorage.__objects[key] = instance
+        except FileNotFoundError:
+            pass
