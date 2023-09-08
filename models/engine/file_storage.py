@@ -3,7 +3,6 @@
 """File storage"""
 
 import json
-import models
 
 class FileStorage:
     __file_path = "file.json"
@@ -26,15 +25,14 @@ class FileStorage:
 
     def reload(self):
         """Deserializes the JSON file to __objects."""
-        try:
+        dict_obj = {}
+        FileStorage.__objects = {}
+        if (exists(FileStorage.__file_path)):
             with open(FileStorage.__file_path, "r") as file:
-                data = json.load(file)
-                for key, value in data.items():
-                    class_name, obj_id = key.split('.')
-                    module_name = class_name.lower()
-                    module = __import__('models.' + module_name, fromlist=[class_name])
-                    cls = getattr(module, class_name)
-                    instance = cls(**value)
-                    FileStorage.__objects[key] = instance
-        except FileNotFoundError:
-            pass
+                dict_obj = load(file)
+                for key, value in dict_obj.items():
+                    class_name = key.split(".")[0]
+                    if class_name in name_class:
+                        FileStorage.__objects[key] = eval(class_name)(**value)
+                    else:
+                        pass
