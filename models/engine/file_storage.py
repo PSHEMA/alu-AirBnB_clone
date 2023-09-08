@@ -3,6 +3,7 @@
 """File storage"""
 
 import json
+import models
 
 class FileStorage:
     __file_path = "file.json"
