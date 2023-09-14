@@ -6,7 +6,12 @@ This module defines the console for the AirBnB clone project
 import cmd
 import models
 import shlex
-
+from models.base_model import BaseModel
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     """
@@ -121,7 +126,6 @@ class HBNBCommand(cmd.Cmd):
             else:
                 setattr(models.storage.all()[key], args[2], args[3])
                 models.storage.save()
-
 
 if __name__ == '__main__':
     """
