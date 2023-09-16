@@ -1,15 +1,11 @@
 #!/usr/bin/python3
-"""
-Module documentation
-"""
+""" class User """
 
 from models.base_model import BaseModel
 
 
 class User(BaseModel):
-    """
-    User class
-    """
+    """ class User """
     email = ""
     password = ""
     first_name = ""
