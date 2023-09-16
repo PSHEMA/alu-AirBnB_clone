@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-"""
-    Define HBnB console.
-"""
+""" console for HBNB """
 import cmd
 import re
 from shlex import split
@@ -34,11 +32,7 @@ def parse(arg):
 
 
 class HBNBCommand(cmd.Cmd):
-    """
-        Define HBnBCommand interpreter
-        Attributes:
-            prompt (str): The command prompt
-    """
+    """ Command interpreter class """
 
     prompt = "(hbnb) "
     __classes = {
@@ -52,9 +46,7 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def emptyline(self):
-        """
-            Do nothing upon receiving an empty line
-        """
+        """ Do nothing on empty input line"""
         pass
 
     def default(self, arg):
@@ -81,23 +73,16 @@ class HBNBCommand(cmd.Cmd):
         return False
 
     def do_quit(self, arg):
-        """
-            Quit command to exit the program.
-        """
+        """ Quit command to exit the program """
         return True
 
     def do_EOF(self, arg):
-        """
-            EOF signal to exit the program.
-        """
+        """ EOF command to exit the program """
         print("")
         return True
 
     def do_create(self, arg):
-        """
-        Usage: create <class>
-        Create a new class instance and print its id.
-        """
+        """ Create a new instance of BaseModel, save it, and print the id """
         argl = parse(arg)
         if len(argl) == 0:
             print("** class name missing **")
@@ -108,10 +93,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_show(self, arg):
-        """
-        Usage: show <class> <id> or <class>.show(<id>)
-        Display the string representation of a class instance of a given id.
-        """
+        """ Prints the string representation of an instance """
         argl = parse(arg)
         objdict = storage.all()
         if len(argl) == 0:
@@ -126,10 +108,7 @@ class HBNBCommand(cmd.Cmd):
             print(objdict["{}.{}".format(argl[0], argl[1])])
 
     def do_destroy(self, arg):
-        """
-        Usage: destroy <class> <id> or <class>.destroy(<id>)
-        Delete a class instance of a given id.
-        """
+        """ Deletes an instance based on the class name and id """
         argl = parse(arg)
         objdict = storage.all()
         if len(argl) == 0:
@@ -145,11 +124,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, arg):
-        """
-        Usage: all or all <class> or <class>.all()
-        Display string representations of all instances of a given class.
-        If no class is specified, displays all instantiated objects.
-        """
+        """ Prints all string representation of all instances """
         argl = parse(arg)
         if len(argl) > 0 and argl[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
@@ -175,13 +150,7 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def do_update(self, arg):
-        """
-        Usage: update <class> <id> <attribute_name> <attribute_value> or
-       <class>.update(<id>, <attribute_name>, <attribute_value>) or
-       <class>.update(<id>, <dictionary>)
-        Update a class instance of a given id by adding or updating
-        a given attribute key/value pair or dictionary.
-        """
+        """ Updates an instance based on the class name and id """
         argl = parse(arg)
         objdict = storage.all()
 
